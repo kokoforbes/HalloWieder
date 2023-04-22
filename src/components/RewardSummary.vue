@@ -25,7 +25,7 @@ export default {
 
 <template>
   <div
-    class="container mx-auto p-9 bg-white max-w-sm rounded-2xl overflow-hidden border hover:shadow-2xl transition duration-300 h-[506px]"
+    class="container mx-auto p-9 flex flex-col justify-between bg-white max-w-sm rounded-2xl overflow-hidden border hover:shadow-2xl transition duration-300 h-[538px]"
   >
     <img
       class="rounded-xl w-80 h-80 object-contain"
@@ -33,7 +33,7 @@ export default {
       :alt="reward.name"
     />
 
-    <h1 class="mt-5 text-2xl font-semibold truncate text-ellipsis">
+    <h1 class="mt-5 text-2xl font-semibold line-clamp-2">
       {{ reward.name }}
     </h1>
 
