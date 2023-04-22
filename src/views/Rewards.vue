@@ -21,6 +21,7 @@ export default {
         v-for="reward in rewards"
         :key="reward.id"
         :reward="reward"
+        :disabled="true"
       />
     </div>
     <p v-else class="text-center">You have not claimed any reward.</p>

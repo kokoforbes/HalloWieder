@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "RewardSummary",
@@ -8,16 +8,38 @@ export default {
       type: Object,
       required: true,
     },
+
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {};
   },
 
+  computed: mapState({
+    rewards: (state) => state.rewards,
+  }),
+
   methods: {
     ...mapActions(["addReward"]),
 
     claimReward(reward) {
-      this.addReward(reward);
+      //check if reward is added to store already
+      const exist = this.rewards.includes(reward);
+      if (exist) {
+        this.$notify({
+          type: "warn",
+          text: "Reward already claimed!",
+        });
+      } else {
+        this.addReward(reward);
+        this.$notify({
+          type: "success",
+          text: "Reward claimed successfully!",
+        });
+      }
     },
   },
 };
@@ -38,10 +60,16 @@ export default {
     </h1>
 
     <div class="flex justify-between items-center mt-5">
-      <p class="mt-2 font-semibold">{{ reward.needed_points }}</p>
+      <p class="mt-2 font-semibold text-green-400">
+        {{ reward.needed_points }}
+      </p>
       <button
         @click="claimReward(reward)"
-        class="text-white text-md font-semibold bg-green-400 py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-500 transform-gpu hover:scale-110"
+        :disabled="disabled"
+        class="text-white text-md font-semibold bg-green-400 py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-500 transform-gpu"
+        :class="
+          disabled ? 'focus:outline-none bg-gray-400 ' : 'hover:scale-110'
+        "
       >
         Claim Reward
       </button>
