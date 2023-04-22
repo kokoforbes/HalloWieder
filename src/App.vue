@@ -28,7 +28,7 @@ export default {
         >
       </nav>
     </header>
-
+    <notifications />
     <router-view />
   </div>
 </template>
