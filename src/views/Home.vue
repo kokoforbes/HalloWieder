@@ -21,7 +21,6 @@ export default {
       .then((res) => res.json())
       .then((json) => {
         this.rewards = json;
-        console.log(json);
       });
     this.isLoading = false;
   },
@@ -29,12 +28,15 @@ export default {
 </script>
 
 <template>
-  <div class="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
-    <RewardSummary
-      v-for="reward in rewards"
-      :key="reward.id"
-      :reward="reward"
-    />
+  <div class="max-w-[2520px] mx-auto xl:p-20 md:p-10 sm:p-2 p-4">
+    <div v-if="isLoading" class="text-center">Loading...</div>
+    <div v-else class="flex gap-8 flex-wrap">
+      <RewardSummary
+        v-for="reward in rewards"
+        :key="reward.id"
+        :reward="reward"
+      />
+    </div>
   </div>
 </template>
 
